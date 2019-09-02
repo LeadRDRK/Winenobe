@@ -1,5 +1,6 @@
 # finobe-linux-wrapper
 Script to automatically install Finobe and add URI handlers.
+
 This script is not created or officially supported by the Finobe team. This is just a hobby project that I created for my own use. It might be unstable and might not work correctly. Use at your own risk.
 # Dependencies
 - wine
