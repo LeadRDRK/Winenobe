@@ -11,5 +11,5 @@ This script is not created or officially supported by the Finobe team. This is j
 4. Depending on the version you wanted to install, run the following commands:
 - `./install_finobe.sh 2016` for 2016
 - `./install_finobe.sh 2012` for 2012
-Run `./install_finobe.sh` without any parameters to display additional options.
+- Run `./install_finobe.sh` without any parameters to display additional options.
 5. Hit play on a game and you should be able to join!
