@@ -1,5 +1,5 @@
 # Winenobe
-Winenobe is a script which automatically installs Finobe and adds URI handlers.
+Winenobe is a script which semi-automatically installs Finobe and adds URI handlers.
 
 This script is not created or officially supported by the Finobe team. It might not work correctly.
 # Dependencies
