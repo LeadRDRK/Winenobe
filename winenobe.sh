@@ -8,11 +8,17 @@ failed () {
 }
 
 print_usage () {
-	echo "Usage: ./install_finobe.sh [option] version"
+	echo "Usage: ./winenobe.sh [option] version"
+	echo "\"version\" can be either 2012 or 2016."
 	echo
 	echo "Options:"
-	echo "   --skip-installation            Forcefully skips installation."
-	echo "   --skip-uri                     Forcefully skips adding the URI handler."
+	echo "   --help, -h                 Displays this help message and exit."
+	echo "   --skip, -s task            Skips a task."
+	echo
+	echo "   \"task\" can be one of the following:"
+	echo "   - install: skips installation."
+	echo "   - uri: skips URI registration."
+	echo
 }
 
 # check for requirements
@@ -20,30 +26,49 @@ for program in wine wineserver wget sed cat
 do
 	if ! command -v "$program" > /dev/null 2>&1
 	then
-		echo "$program not found !"
+		echo "$program not found ! Program not installed or incorrectly configured."
 		exit 1
 	fi
 done
 
-# check options
+# check parameters
 case "$1" in
-	"--skip-installation")
-		SKIPINSTALL=true
-		F_VERSION="$2"
+	"--skip" | "-s")
+		case "$2" in
+			"install")
+				SKIPINSTALL=true
+				;;
+			"uri")
+				SKIPURI=true
+				;;
+			*)
+				echo "Invalid task."
+				echo
+				print_usage
+				exit
+				;;
+		esac
+		F_VERSION="$3"
 		;;
-	"--skip-uri")
-		SKIPURI=true
-		F_VERSION="$2"
+	"--help" | "-h")
+		print_usage
+		exit
 		;;
 	*)
 		F_VERSION="$1"
 		;;
 esac
 
-# checks if version is specified
-if [ -z "$F_VERSION" ] || ( [ "$F_VERSION" != "2012" ] && [ "$F_VERSION" != "2016" ] )
+if [ -z "$F_VERSION" ] && [ "$F_VERSION" != "2012" ] && [ "$F_VERSION" != "2016" ]
 then
-	echo "Version not specified or invalid."
+	print_usage
+	exit
+fi
+
+if [ "$F_VERSION" != "2012" ] && [ "$F_VERSION" != "2016" ]
+then
+	echo "Specified version is invalid."
+	echo
 	print_usage
 	exit 1
 fi
@@ -131,7 +156,7 @@ then
 	else
 		INSTALLPATH="$W_DRIVE_C/Finobe/2012"
 	fi
-	rm "install.exe" || failed
+	rm "install.exe"
 
 	if find "$INSTALLPATH" -mindepth 1 -print -quit 2>/dev/null | grep -q .
 	then
