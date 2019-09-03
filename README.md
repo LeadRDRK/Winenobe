@@ -15,5 +15,6 @@ This script is not created or officially supported by the Finobe team. It might 
 - `./winenobe.sh 2016` for 2016
 - `./winenobe.sh 2012` for 2012
 - Run `./winenobe.sh --help` to display additional options.
-- Disclaimer: Although this script allows installation of the 2012 version, as of the current Wine development version (4.15), it does not work yet. Blame Wine.
 5. Hit Play on a game and you should be able to join!
+# Notes
+As of recent tests, I've discovered that the 2012 version actually works ! You just have to hit play a few times until the launcher opens with English text instead of Chinese text.
