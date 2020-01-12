@@ -21,4 +21,4 @@ This script will not automatically install those for you ! You MUST install them
 # Additional Notes
 It was recently discovered that 2012 games are actually playable.
 
-To join a 2012 game, you must join that game repeatedly until the launcher shows English text, not Chinese. This is most likely a Wine bug and has nothing to do with this script.
+To join a 2012 game, you must join the game repeatedly until it launches. This is most likely a Wine bug and has nothing to do with this script.
