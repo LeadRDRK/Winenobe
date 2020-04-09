@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-VERSION="1.2-git"
+VERSION="1.2.1-git"
 
 [ "$OSTYPE" != "linux-gnu" ] && echo "WARNING: Operating system not supported ! Use this at your own risk."
 trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
@@ -230,9 +230,7 @@ progressfilt () {
 
 if [ -z "$F_INSTALLED" ] && [ -z "$SKIPINSTALL" ]
 then
-	# hi there, random person. if you're here to check the validity
-	# of those file links below, i can assure you that those files are
-	# the original, unmodified version of them. you can check it for yourself if you want.
+	# yes those files links below are the original
 	if [ "$F_VERSION" = "2012" ]
 	then
 		echo "NOTICE: While this script can install the 2012 client, it is not guaranteed to be the lastest version."
@@ -240,7 +238,7 @@ then
 		echo
 		DLINK="https://files.catbox.moe/ttlil8.bin"
 	else
-		DLINK="https://leadrdrk.ml/assets/BootstrapperFinobe.notanexe"
+		DLINK="https://files.catbox.moe/xnmxem.bin"
 	fi
 	echo "Downloading..."
 	wget --progress=bar:force -O "install.exe" "$DLINK" 2>&1 | progressfilt
@@ -287,7 +285,7 @@ then
 	if [ ! -f "$LAUNCHER" ]
 	then
 		echo "PenelopeLauncher.exe not found, downloading it now."
-		wget --progress=bar:force -O "$LAUNCHER" "https://leadrdrk.ml/assets/BootstrapperFinobe.notanexe" 2>&1 | progressfilt
+		wget --progress=bar:force -O "$LAUNCHER" "https://files.catbox.moe/xnmxem.bin" 2>&1 | progressfilt
 		echo
 	fi
 else
