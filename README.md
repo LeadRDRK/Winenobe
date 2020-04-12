@@ -3,7 +3,8 @@ Winenobe is a script which semi-automatically installs Finobe and adds URI handl
 
 This script is not created or officially supported by the Finobe team. It might not work correctly.
 # Dependencies
-- wine (or wine-staging, wine-dev)
+- wine-staging
+wine and wine-dev have a bug which prevents the camera from working properly.
 - wget
 
 This script will not automatically install those for you ! You MUST install them manually.
