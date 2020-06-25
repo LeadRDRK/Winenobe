@@ -20,5 +20,15 @@ This script will not automatically install those for you ! You MUST install them
 - `./winenobe.sh 2012` for 2012
 - Run `./winenobe.sh --help` to display additional options.
 5. Hit Play on a game and you should be able to join!
+# Troubleshooting
+Some Linux distributions come with a very minimal Wine package. As a result, some optional Wine dependencies required for Finobe to run are missing and thus, it crashes and doesn't want to install.
+
+To fix this, you need to install these optional dependencies. Common missing dependencies are `gnutls` and `libldap`
+
+On Arch Linux, you can install all of these missing dependencies using these commands (thanks to the lads over at the Grapejuice project):
+```sh
+sudo pacman -S expac
+sudo pacman -S $(expac '%n %o' | grep ^wine)
+```
 # Additional Notes
 To join a 2012 game, you must join the game repeatedly until it launches. This is most likely a Wine bug and has nothing to do with this script.

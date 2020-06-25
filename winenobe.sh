@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-VERSION="1.2.1-git"
+VERSION="1.2.2-git"
 
 [ "$OSTYPE" != "linux-gnu" ] && echo "WARNING: Operating system not supported ! Use this at your own risk."
 trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
@@ -254,7 +254,7 @@ then
 	echo "Close all other Wine processes before proceeding !"
 	read -p "Press Enter to begin installing."
 	echo "Installing..."
-	wine "install.exe" || failed
+	wine "install.exe" &> /dev/null || failed
 	wineserver -w
 	if [ "$F_VERSION" = "2016" ]
 	then
@@ -306,18 +306,17 @@ then
 else
 	cat << EOF > "$DESKTOPFILE"
 [Desktop Entry]
-Version=1
+Version=1.0
 Type=Application
 Name=Finobe Player ($F_VERSION)
-NoDisplay=true
-OnlyShowIn=X-None
 Comment=Play Finobe games!
-Exec=wine '$LAUNCHER' %U
-Actions=
+Exec=wine '$LAUNCHER' "%u"
+Categories=Game;
 MimeType=$MIMETYPE
-Categories=Game
 EOF
 	echo "Created desktop file."
+	echo "Updating desktop database..."
+	update-desktop-database "$HOME/.local/share/applications"
 fi
 
 MIMEAPPS="$HOME/.local/share/applications/mimeapps.list"
@@ -339,5 +338,7 @@ else
 	echo >> "$MIMEAPPS" || failed
 	echo "$MIMEENTRY" >> "$MIMEAPPS"
 	echo "Added Finobe URI handler."
+	echo "Updating MIME database..."
+	update-mime-database "$HOME/.local/share/mime"
 	echo
 fi
