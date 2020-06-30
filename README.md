@@ -5,7 +5,7 @@ This script is not created or officially supported by the Finobe team.
 
 Have a problem or just wanna talk ? Join our Discord server: https://discord.gg/ZHP5TxT
 # Dependencies
-- Wine Staging (Wine Stable and Wine Dev have a bug which prevents the camera from working properly.)
+- wine 4.0 or later (wine-staging or wine-dev preferred)
 - wget
 
 This script will not automatically install those for you ! You MUST install them manually.

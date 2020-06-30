@@ -254,7 +254,7 @@ then
 	echo "Close all other Wine processes before proceeding !"
 	read -p "Press Enter to begin installing."
 	echo "Installing..."
-	wine "install.exe" &> /dev/null || failed
+	wine "install.exe" || failed
 	wineserver -w
 	if [ "$F_VERSION" = "2016" ]
 	then
