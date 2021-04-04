@@ -3,7 +3,7 @@ Winenobe is a script which semi-automatically installs Finobe and adds URI handl
 
 This script is not created or officially supported by the Finobe team.
 
-Have a problem or just wanna talk? Join our Discord server: https://discord.gg/ZHP5TxT
+Have a problem or just wanna talk? Join our Discord server: https://discord.gg/Svg4ZS8cfc
 # Dependencies
 - wine 6.5 or later
 - wget
