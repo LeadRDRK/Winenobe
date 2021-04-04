@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-VERSION="1.2.2-git"
+VERSION="1.2.3-git"
 
 [ "$OSTYPE" != "linux-gnu" ] && echo "WARNING: Operating system not supported ! Use this at your own risk."
 trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
@@ -50,8 +50,8 @@ then
 	WINEPREFIX="$HOME/.wine"
 fi
 
-# determines the program files folder
 W_DRIVE_C="$WINEPREFIX/drive_c"
+W_APPDATA="$W_DRIVE_C/users/$(whoami)/Local Settings/Application Data"
 if [ -d "$W_DRIVE_C/windows/syswow64" ]
 then
 	W_PROGFILES="$W_DRIVE_C/Program Files (x86)"
@@ -130,7 +130,7 @@ uninstall () {
 		DESKTOPFILE="$HOME/.local/share/applications/finobe-player-2012.desktop"
 		MIMETYPE="x-scheme-handler/finobetw"
 	else
-		INSTALLPATH="$W_PROGFILES/Finobe"
+		INSTALLPATH="$W_APPDATA/Finobe"
 		DESKTOPFILE="$HOME/.local/share/applications/finobe-player-2016.desktop"
 		MIMETYPE="x-scheme-handler/finobesi"
 	fi
@@ -139,13 +139,19 @@ uninstall () {
 
 	if [ ! -z "$RMFILES" ]
 	then
-		echo "Removing Finobe $F_VERSION..."
 		if [ -d "$INSTALLPATH" ]
 		then
+            echo "Removing Finobe $F_VERSION..."
 			rm -rf "$INSTALLPATH" || failed
 		else
 			echo "Finobe $F_VERSION installation not found, skipping."
 		fi
+		
+		if [ "$F_VERSION" = "2016" ] && [ -d "$W_PROGFILES/Finobe" ]
+        then
+            echo "Removing legacy Finobe $F_VERSION installation..."
+			rm -rf "$W_PROGFILES/Finobe" || failed
+        fi
 	fi
 
 	if [ ! -z "$RMURI" ]
@@ -200,7 +206,7 @@ finobe_installed () {
 # check if finobe is already installed
 if [ "$F_VERSION" = "2016" ]
 then
-	[ -d "$W_PROGFILES/Finobe/Versions" ] && finobe_installed
+	[ -d "$W_APPDATA/Finobe/Versions" ] && finobe_installed
 else
 	[ -d "$W_DRIVE_C/Finobe/2012" ] && finobe_installed
 fi
@@ -258,7 +264,7 @@ then
 	wineserver -w
 	if [ "$F_VERSION" = "2016" ]
 	then
-		INSTALLPATH="$W_PROGFILES/Finobe/Versions"
+		INSTALLPATH="$W_APPDATA/Finobe/Versions"
 		cp "install.exe" "$INSTALLPATH/PenelopeLauncher.exe" || failed
 	else
 		INSTALLPATH="$W_DRIVE_C/Finobe/2012"
@@ -281,7 +287,7 @@ fi
 if [ "$F_VERSION" = "2016" ]
 then
 	DESKTOPFILE="$HOME/.local/share/applications/finobe-player-2016.desktop"
-	LAUNCHER="$W_PROGFILES/Finobe/Versions/PenelopeLauncher.exe"
+	LAUNCHER="$W_APPDATA/Finobe/Versions/PenelopeLauncher.exe"
 	if [ ! -f "$LAUNCHER" ]
 	then
 		echo "PenelopeLauncher.exe not found, downloading it now."
@@ -310,7 +316,7 @@ Version=1.0
 Type=Application
 Name=Finobe Player ($F_VERSION)
 Comment=Play Finobe games!
-Exec=wine '$LAUNCHER' "%u"
+Exec=wine '$LAUNCHER' %u
 Categories=Game;
 MimeType=$MIMETYPE
 EOF
