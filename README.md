@@ -1,3 +1,5 @@
+# Finobe is dead.
+Consequently, this script is now useless. However, the code is still here for future referencing if needed.
 # Winenobe
 Winenobe is a script which semi-automatically installs Finobe and adds URI handlers.
 
